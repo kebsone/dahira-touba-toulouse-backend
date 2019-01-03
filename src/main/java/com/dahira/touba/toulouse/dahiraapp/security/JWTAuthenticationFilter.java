@@ -2,6 +2,7 @@ package com.dahira.touba.toulouse.dahiraapp.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.dahira.touba.toulouse.dahiraapp.Utils.SecurityParam;
 import com.dahira.touba.toulouse.dahiraapp.metier.AppUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,7 +38,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             //déserealise json vers java
             AppUser  appUser = new ObjectMapper().readValue(request.getInputStream(),AppUser.class);
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword()));
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUser.getUserName(), appUser.getPassword()));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,8 +58,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     .withIssuer(request.getRequestURI())
                     .withSubject(user.getUsername())
                     .withArrayClaim("roles", roles.toArray(new String[roles.size()]))
-                    .withExpiresAt(new Date(System.currentTimeMillis()+10*24*3600))
-                    .sign(Algorithm.HMAC256("serigneTouba"));
-            response.addHeader("Autorization", jwt);
+                    .withExpiresAt(new Date(System.currentTimeMillis()+SecurityParam.EXPIRATION))
+                    .sign(Algorithm.HMAC256(SecurityParam.SECRET));
+            response.addHeader(SecurityParam.HEADER_NAME, jwt);
     }
 }

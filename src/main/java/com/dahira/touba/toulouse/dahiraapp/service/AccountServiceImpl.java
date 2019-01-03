@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
         if(user !=null) throw new RuntimeException(" User existe déjà");
         if(!password.equals(confirmPassword)) throw new RuntimeException("Svp confirmez le mot de pass");
         AppUser appUser = new AppUser();
-        appUser.setUsername(userName);
+        appUser.setUserName(userName);
         appUser.setActived(true);
         // cripter le mot de pass avant de le setter
         appUser.setPassword(bCryptPasswordEncoder.encode(password));

@@ -1,5 +1,7 @@
 package com.dahira.touba.toulouse.dahiraapp.metier;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +13,7 @@ public class AppUser {
     private Long id;
     @Column(unique = true)
     private String userName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private boolean actived;
 
@@ -26,12 +29,12 @@ public class AppUser {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUsername(String username) {
-        this.userName = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -65,7 +68,7 @@ public class AppUser {
     public String toString() {
         return "AppUser{" +
                 "id=" + id +
-                ", username='" + userName + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", actived=" + actived +
                 ", roles=" + roles +
