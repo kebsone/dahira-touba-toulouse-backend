@@ -5,9 +5,9 @@ import com.dahira.touba.toulouse.dahiraapp.Utils.AppUserForm;
 import com.dahira.touba.toulouse.dahiraapp.metier.AppUser;
 import com.dahira.touba.toulouse.dahiraapp.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AppUserController {
@@ -18,6 +18,17 @@ public class AppUserController {
 
     @PostMapping("/register")
     public AppUser register(@RequestBody  AppUserForm appUserForm){
-       return  accountService.saveUser(appUserForm.getUserName(), appUserForm.getPassword(), appUserForm.getConfirmedPassword());
+       return  accountService.saveUser(appUserForm);
+    }
+
+    @GetMapping("/user/{username}")
+    public AppUser getUserByUserName(@PathVariable String username){
+        return accountService.loadUserByUserName(username);
+    }
+
+
+    @GetMapping("/appUsers")
+    public List<AppUser> getAppUsers(){
+        return accountService.getAppUsers();
     }
 }

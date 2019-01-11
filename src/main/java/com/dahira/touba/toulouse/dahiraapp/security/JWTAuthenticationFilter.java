@@ -38,7 +38,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             //déserealise json vers java
             AppUser  appUser = new ObjectMapper().readValue(request.getInputStream(),AppUser.class);
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUser.getUserName(), appUser.getPassword()));
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(appUser.getMail(), appUser.getPassword()));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,6 +50,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
          User user =(User) authResult.getPrincipal();
+
          List<String> roles = new ArrayList<>();
          authResult.getAuthorities().forEach(r->{
              roles.add(r.getAuthority());
@@ -57,6 +58,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             String jwt = JWT.create()
                     .withIssuer(request.getRequestURI())
                     .withSubject(user.getUsername())
+                    .withClaim("username", user.getUsername())
                     .withArrayClaim("roles", roles.toArray(new String[roles.size()]))
                     .withExpiresAt(new Date(System.currentTimeMillis()+SecurityParam.EXPIRATION))
                     .sign(Algorithm.HMAC256(SecurityParam.SECRET));

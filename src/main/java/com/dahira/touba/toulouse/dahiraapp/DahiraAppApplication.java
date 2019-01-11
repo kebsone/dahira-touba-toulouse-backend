@@ -17,7 +17,7 @@ public class DahiraAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DahiraAppApplication.class, args);
 	}
-	@Bean
+	/*@Bean
 	CommandLineRunner start(AccountService accountService){
 		return  args -> {
 			accountService.saveRole(new AppRole(null, "USER"));
@@ -27,7 +27,7 @@ public class DahiraAppApplication {
 			});
 			accountService.addRoleToUser("admin", "ADMIN");
 		};
-	}
+	}*/
 	@Bean
 	BCryptPasswordEncoder getBCPE(){
 		return  new BCryptPasswordEncoder();
