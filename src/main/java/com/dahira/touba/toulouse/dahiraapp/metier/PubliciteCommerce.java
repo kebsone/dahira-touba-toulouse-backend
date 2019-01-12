@@ -1,5 +1,6 @@
 package com.dahira.touba.toulouse.dahiraapp.metier;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
