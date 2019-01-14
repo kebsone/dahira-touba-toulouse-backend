@@ -34,6 +34,14 @@ public class AppUser {
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<AppRole> roles = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="dahira_mission")
+    private Collection<Commission> commissions;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="dahira_competent")
+    private Collection<Competence> competences;
+
     public Long getId() {
         return id;
     }
@@ -112,6 +120,22 @@ public class AppUser {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public Collection<Commission> getCommissions() {
+        return commissions;
+    }
+
+    public void setCommissions(Collection<Commission> commissions) {
+        this.commissions = commissions;
+    }
+
+    public Collection<Competence> getCompetences() {
+        return competences;
+    }
+
+    public void setCompetences(Collection<Competence> competences) {
+        this.competences = competences;
     }
 
     public AppUser() {
