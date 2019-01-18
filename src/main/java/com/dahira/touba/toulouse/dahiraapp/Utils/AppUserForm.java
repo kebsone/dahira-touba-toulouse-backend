@@ -13,6 +13,26 @@ public class AppUserForm {
     public AppUserForm() {
     }
 
+    public AppUserForm(String prenom, String nom, String genre, String telephone, String adresse, String mail, String password, String confirmedPassword) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.genre = genre;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.mail = mail;
+        this.password = password;
+        this.confirmedPassword = confirmedPassword;
+    }
+
+    public AppUserForm(String prenom, String nom, String genre, String telephone, String adresse, String mail) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.genre = genre;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.mail = mail;
+    }
+
     public String getPrenom() {
         return prenom;
     }

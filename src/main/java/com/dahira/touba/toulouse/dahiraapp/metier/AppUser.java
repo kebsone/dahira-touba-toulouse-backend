@@ -34,9 +34,8 @@ public class AppUser {
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<AppRole> roles = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="dahira_mission")
-    private Collection<Commission> commissions;
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = false)
+    private Collection<Mission> missions;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="dahira_competent")
@@ -122,12 +121,12 @@ public class AppUser {
         this.adresse = adresse;
     }
 
-    public Collection<Commission> getCommissions() {
-        return commissions;
+    public Collection<Mission> getMissions() {
+        return missions;
     }
 
-    public void setCommissions(Collection<Commission> commissions) {
-        this.commissions = commissions;
+    public void setMissions(Collection<Mission> missions) {
+        this.missions = missions;
     }
 
     public Collection<Competence> getCompetences() {

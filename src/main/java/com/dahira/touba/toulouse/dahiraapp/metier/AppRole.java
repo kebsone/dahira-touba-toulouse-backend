@@ -29,6 +29,10 @@ public class AppRole {
     public AppRole() {
     }
 
+    public AppRole(String roleName) {
+        this.roleName = roleName;
+    }
+
     public AppRole(Long id, String roleName) {
         this.id = id;
         this.roleName = roleName;

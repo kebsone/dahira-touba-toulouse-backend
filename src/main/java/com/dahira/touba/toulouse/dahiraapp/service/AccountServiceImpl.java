@@ -69,6 +69,15 @@ public class AccountServiceImpl implements AccountService {
             AppUser appUser = appUserRepository.findByMail(mail);
         System.out.print("User =============>"+ appUser);
             AppRole appRole = appRoleRepository.findByRoleName(roleName);
+            if(appRole == null){
+                appRole = new AppRole(roleName);
+                try {
+                    appRoleRepository.save(appRole);
+                    appRoleRepository.flush();
+                }catch (Exception ex){
+                    throw new RuntimeException(ex);
+                }
+            }
         System.out.print("role =============>"+ appRole);
             appUser.getRoles().add(appRole);
         System.out.print("roles User ===========>"+ appUser.getRoles());
@@ -78,4 +87,37 @@ public class AccountServiceImpl implements AccountService {
     public List<AppUser> getAppUsers() {
         return appUserRepository.findAll();
     }
+
+    @Override
+    public AppUser updateUser(AppUserForm appUserForm) {
+        String mail = appUserForm.getMail();
+       // String password = appUserForm.getPassword();
+       // String confirmPassword = appUserForm.getConfirmedPassword();
+        //Est ce que l'utilisateur existe ou pas
+        AppUser user = appUserRepository.findByMail(mail);
+        if(user ==null) throw new RuntimeException("User n'existe pas encore");
+      //  if(!password.equals(confirmPassword)) throw new RuntimeException("Svp confirmez le mot de pass");
+        AppUser appUser = new AppUser();
+        appUser.setPassword(user.getPassword());
+        appUser.setId(user.getId());
+        appUser.setMail(mail);
+        appUser.setActived(true);
+        appUser.setNom(appUserForm.getNom());
+        appUser.setPrenom(appUserForm.getPrenom());
+        appUser.setTelephone(appUserForm.getTelephone());
+        appUser.setGenre(appUserForm.getGenre());
+        appUser.setAdresse(appUserForm.getAdresse());
+        // cripter le mot de pass avant de le setter
+        appUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        try {
+            appUserRepository.save(appUser);
+            appUserRepository.flush();
+        }catch (Exception ex){
+            throw  new RuntimeException(ex);
+        }
+        addRoleToUser(mail, "USER");
+        return appUser;
+    }
+
+
 }

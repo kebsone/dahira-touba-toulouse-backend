@@ -27,6 +27,10 @@ public class AppUserController {
     }
 
 
+    @PutMapping("/user")
+    public AppUser updateUser(@RequestBody AppUserForm appUserForm){
+        return accountService.updateUser(appUserForm);
+    }
     @GetMapping("/appUsers")
     public List<AppUser> getAppUsers(){
         return accountService.getAppUsers();
