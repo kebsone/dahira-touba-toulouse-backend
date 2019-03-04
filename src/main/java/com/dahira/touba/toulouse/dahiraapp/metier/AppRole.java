@@ -1,10 +1,7 @@
 package com.dahira.touba.toulouse.dahiraapp.metier;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class AppRole {
@@ -30,6 +27,10 @@ public class AppRole {
     }
 
     public AppRole() {
+    }
+
+    public AppRole(String roleName) {
+        this.roleName = roleName;
     }
 
     public AppRole(Long id, String roleName) {

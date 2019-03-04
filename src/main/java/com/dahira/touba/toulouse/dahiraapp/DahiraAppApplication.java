@@ -1,5 +1,6 @@
 package com.dahira.touba.toulouse.dahiraapp;
 
+import com.dahira.touba.toulouse.dahiraapp.Utils.AppUserForm;
 import com.dahira.touba.toulouse.dahiraapp.metier.AppRole;
 import com.dahira.touba.toulouse.dahiraapp.service.AccountService;
 import org.springframework.boot.CommandLineRunner;
@@ -22,10 +23,11 @@ public class DahiraAppApplication {
 		return  args -> {
 			accountService.saveRole(new AppRole(null, "USER"));
 			accountService.saveRole(new AppRole(null, "ADMIN"));
-			Stream.of("user1", "user2", "user3", "admin").forEach(un->{
+			/*Stream.of("user1", "user2", "user3", "admin").forEach(un->{
 				accountService.saveUser(un, "1234", "1234");
-			});
-			accountService.addRoleToUser("admin", "ADMIN");
+			});*/
+			accountService.saveUser(new AppUserForm("admin","admin", "Homme", "05 050 50","Toulouse", "admin@gmail.com","admin", "admin"));
+			accountService.addRoleToUser("admin@gmail.com", "ADMIN");
 		};
 	}
 	@Bean

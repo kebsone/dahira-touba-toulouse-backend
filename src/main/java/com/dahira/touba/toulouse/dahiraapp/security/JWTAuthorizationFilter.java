@@ -32,8 +32,11 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
        httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
        httpServletResponse.addHeader("Access-Control-Allow-Headers","Origin, Accept, X-Requested-with, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, authorization");
-       httpServletResponse.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, authorization");
-       if(httpServletRequest.getMethod().equals("OPTIONS")){
+      httpServletResponse.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, authorization");
+        httpServletResponse.addHeader("Access-Control-Allow-Methods", "GET,PSOT,PUT,DELETE,PATCH");
+
+
+        if(httpServletRequest.getMethod().equals("OPTIONS")){
            // J' ai déjà gérer les headers dons s'il envoit une requetes avec options pour demander les url autorisé je retourne OK
            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
        } else if (httpServletRequest.getRequestURI().equals("/login")){
@@ -53,6 +56,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SecurityParam.SECRET)).build();
         DecodedJWT decodedJWT = jwtVerifier.verify(jwt.substring(SecurityParam.HEADER_PREFIX.length()));
         String userName = decodedJWT.getSubject();
+        System.out.print("username=>>>>>"+ userName);
         List<String> roles = decodedJWT.getClaims().get("roles").asList(String.class);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         roles.forEach(r->{

@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         // Auth de type statless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login/**", "/register/**").permitAll(); //pour ajouter un user ou se logger on n'est pas authentifier
+        http.authorizeRequests().antMatchers("/login/**", "/register/**", "/user/**", "/commissions/**","/postes/**").permitAll(); //pour ajouter un user ou se logger on n'est pas authentifier
         http.authorizeRequests().antMatchers("/appUsers/**", "/appRoles/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager()));

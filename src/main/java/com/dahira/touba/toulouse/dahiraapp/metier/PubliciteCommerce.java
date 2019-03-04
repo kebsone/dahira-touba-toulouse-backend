@@ -11,7 +11,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name ="PUBLICITE_COMMERCE")
+@Table(name ="DAHIRA_PUBLICITE_COMMERCE")
 public class PubliciteCommerce implements Serializable {
 
     @Id
@@ -44,8 +44,8 @@ public class PubliciteCommerce implements Serializable {
     private Date dateFinPub;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="membre_id", nullable = false)
-    private Membre membre;
+    @JoinColumn(name="user_id", nullable = false)
+    private AppUser appUser;
 
 
 }
