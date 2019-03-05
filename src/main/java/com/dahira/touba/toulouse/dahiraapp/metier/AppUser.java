@@ -37,9 +37,9 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = false)
     private Collection<Mission> missions;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+/*    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="dahira_competent")
-    private Collection<Competence> competences;
+    private Collection<Competence> competences;*/
 
     public Long getId() {
         return id;
@@ -122,21 +122,21 @@ public class AppUser {
     }
 
     public Collection<Mission> getMissions() {
-        return missions;
+      return missions;
     }
 
     public void setMissions(Collection<Mission> missions) {
         this.missions = missions;
     }
 
-    public Collection<Competence> getCompetences() {
+ /*   public Collection<Competence> getCompetences() {
         return competences;
     }
 
     public void setCompetences(Collection<Competence> competences) {
         this.competences = competences;
     }
-
+*/
     public AppUser() {
     }
 

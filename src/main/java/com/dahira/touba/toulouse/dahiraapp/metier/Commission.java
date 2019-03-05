@@ -19,8 +19,8 @@ public class Commission implements Serializable {
     private String descriptionComplete;
     private String contact;
 
-    @OneToMany(mappedBy = "commission", fetch = FetchType.LAZY)
-    private Collection<Mission> missions;
+    //@OneToMany(mappedBy = "commission", fetch = FetchType.LAZY)
+    //private Collection<Mission> missions;
 
     public Commission() {
     }
@@ -70,11 +70,11 @@ public class Commission implements Serializable {
         this.descriptionComplete = descriptionComplete;
     }
 
-    public Collection<Mission> getMissions() {
-        return missions;
-    }
+   // public Collection<Mission> getMissions() {
+    //    return missions;
+    //}
 
-    public void setMissions(Collection<Mission> missions) {
-        this.missions = missions;
-    }
+   // public void setMissions(Collection<Mission> missions) {
+      //  this.missions = missions;
+   // }
 }
